@@ -1,32 +1,57 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Duvar AR</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- A-Frame -->
-    <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
-    <!-- MindAR -->
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-world.prod.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-aframe.prod.js"></script>
-  </head>
+<head>
+<meta charset="utf-8">
+<title>Duvar AR</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <body style="margin: 0; overflow: hidden;">
-    <a-scene
-      mindar-world
-      embedded
-      vr-mode-ui="enabled: false"
-      device-orientation-permission-ui="enabled: false">
+<script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-aframe.prod.js"></script>
 
-      <a-camera position="0 1.6 0"></a-camera>
+<style>
+  body { margin: 0; overflow: hidden; }
+  #start {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: black;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    z-index: 10;
+  }
+</style>
+</head>
 
-      <a-entity
-        gltf-model="duvar.glb"
-        position="0 0 -1"
-        scale="1 1 1">
-      </a-entity>
+<body>
 
-    </a-scene>
-  </body>
+<div id="start">Başlamak için dokun</div>
+
+<a-scene
+  mindar-world="uiScanning: false"
+  embedded
+  vr-mode-ui="enabled:false"
+  device-orientation-permission-ui="enabled:false">
+
+  <a-camera position="0 1.6 0"></a-camera>
+
+  <a-entity
+    gltf-model="duvar.glb"
+    position="0 0 -1"
+    scale="1 1 1">
+  </a-entity>
+
+</a-scene>
+
+<script>
+const start = document.getElementById("start");
+start.addEventListener("click", () => {
+  start.style.display = "none";
+  document.querySelector("a-scene").components["mindar-world"].start();
+});
+</script>
+
+</body>
 </html>
