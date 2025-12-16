@@ -30,15 +30,19 @@
 <div id="start">Başlamak için dokun</div>
 
 <a-scene
-  mindar-world="uiScanning: false"
+  mindar-world
   embedded
   vr-mode-ui="enabled:false"
   device-orientation-permission-ui="enabled:false">
 
+  <a-assets>
+    <a-asset-item id="duvarModel" src="duvar.glb"></a-asset-item>
+  </a-assets>
+
   <a-camera position="0 1.6 0"></a-camera>
 
   <a-entity
-    gltf-model="duvar.glb"
+    gltf-model="#duvarModel"
     position="0 0 -1"
     scale="1 1 1">
   </a-entity>
@@ -47,9 +51,11 @@
 
 <script>
 const start = document.getElementById("start");
-start.addEventListener("click", () => {
+const scene = document.querySelector("a-scene");
+
+start.addEventListener("click", async () => {
   start.style.display = "none";
-  document.querySelector("a-scene").components["mindar-world"].start();
+  await scene.components["mindar-world"].start();
 });
 </script>
 
